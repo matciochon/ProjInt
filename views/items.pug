@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title Spis przedmiotów
+  body
+    h1 Wszystkie przedmioty
+
+    ul
+      each item in items
+        li
+          a(href='/items/' + item.id) #{item.nazwa}

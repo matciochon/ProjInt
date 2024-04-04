@@ -1,0 +1,1 @@
+Uruchamiamy poprzez wykonanie komendy "node app.js" w folderze

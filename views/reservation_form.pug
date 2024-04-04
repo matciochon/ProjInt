@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title Formularz rezerwacji
+  body
+    h1 Formularz rezerwacji
+    form(action='/reservations/new', method='post')
+      label(for='item_id') Wybierz przedmiot:
+      select(name='item_id')
+        each item in items
+          option(value=item.id) #{item.nazwa}
+      br
+      label(for='name') Imie i nazwisko:
+      input(type='text', name='name', required)
+      br
+      label(for='start_date') Data początkowa:
+      input(type='datetime-local', name='start_date', required)
+      br
+      label(for='end_date') Data końcowa:
+      input(type='datetime-local', name='end_date', required)
+      br
+      label(for='comment') Komentarz:
+      textarea(name='comment')
+      br
+      input(type='submit', value='Submit')

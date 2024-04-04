@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title Rezerwacje
+  body
+    h1 Lista rezerwacji
+
+    each item, itemName in groupedReservations
+      h2 #{itemName}
+
+      table(style='border: 1px solid black;')
+        thead
+          tr
+            th(style='border: 1px solid black;') Imie i nazwisko
+            th(style='border: 1px solid black;') Data od
+            th(style='border: 1px solid black;') Data do
+
+        tbody
+          each reservation, index in item
+            tr
+              td(style='border: 1px solid black;') #{reservation.imię_nazwisko}
+              td(style='border: 1px solid black;') #{reservation.data_od}
+              td(style='border: 1px solid black;') #{reservation.data_do}
+
