@@ -1,9 +1,19 @@
-const db = require('./db');
+const { sequelize } = require('./db');
+const { DataTypes } = require('sequelize');
 
-exports.getAllItems = (callback) => {
-    db.all('SELECT * FROM Items', callback);
-};
+const Item = sequelize.define('Item', {
+  nazwa: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  opis: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  kategoria: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
 
-exports.getItemById = (id, callback) => {
-    db.get('SELECT * FROM Items WHERE id = ?', [id], callback);
-};
+module.exports = Item;

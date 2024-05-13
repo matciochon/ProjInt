@@ -1,23 +1,50 @@
-const db = require('../models/db');
+const Item = require('../models/item');
 
-exports.getAllItems = (req, res) => {
-    db.all('SELECT * FROM Items', (err, rows) => {
-        if (err) {
-            return res.status(500).send('Internal Server Error');
-        }
-        res.render('items', { items: rows });
-    });
+exports.getAllItems = async (req, res) => {
+    try {
+        const items = await Item.findAll();
+        res.render('items', { items });
+    } catch (error) {
+        console.error('Błąd przy pobieraniu listy przedmiotów:', error);
+        res.status(500).send('Błąd przy pobieraniu listy przedmiotów');
+    }
 };
 
-exports.getItemById = (req, res) => {
+exports.getAllItemsAPI = async (req, res) => {
+    try {
+        const items = await Item.findAll();
+        res.json(items);
+    } catch (error) {
+        console.error('Błąd przy pobieraniu listy przedmiotów:', error);
+        res.status(500).json({ error: 'Błąd przy pobieraniu listy przedmiotów' });
+    }
+};
+
+exports.getItemById = async (req, res) => {
     const id = req.params.id;
-    db.get('SELECT * FROM Items WHERE id = ?', [id], (err, row) => {
-        if (err) {
-            return res.status(500).send('Internal Server Error');
+    try {
+        const item = await Item.findByPk(id);
+        if (!item) {
+            return res.status(404).send('Nie znaleziono przedmiotu');
         }
-        if (!row) {
-            return res.status(404).send('Nie znaleniono przedmiotu');
-        }
-        res.render('item', { item: row });
-    });
+        res.render('item', { item });
+    } catch (error) {
+        console.error('Błąd przy pobieraniu listy przedmiotów:', error);
+        res.status(500).send('Błąd przy pobieraniu listy przedmiotów');
+    }
 };
+
+exports.getItemByIdAPI = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const item = await Item.findByPk(id);
+        if (!item) {
+            return res.status(404).send('Nie znaleziono przedmiotu');
+        }
+        res.json({ item });
+    } catch (error) {
+        console.error('Błąd przy pobieraniu listy przedmiotów:', error);
+        res.status(500).json({ error: 'Błąd przy pobieraniu listy przedmiotów' });
+    }
+};
+

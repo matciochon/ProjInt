@@ -1,19 +1,33 @@
-const db = require('./db');
+const { sequelize } = require('./db');
+const { DataTypes } = require('sequelize');
 
-exports.addReservation = (reservation, callback) => {
-    const { id_przedmiotu, imię_nazwisko, data_od, data_do, komentarz } = reservation;
-    db.run('INSERT INTO Reservations (id_przedmiotu, imię_nazwisko, data_od, data_do, komentarz) VALUES (?, ?, ?, ?, ?)',
-        [id_przedmiotu, imię_nazwisko, data_od, data_do, komentarz],
-        function (err) {
-            callback(err, this.lastID);
-        }
-    );
-};
 
-exports.getAllReservations = (callback) => {
-    db.all('SELECT * FROM Reservations', callback);
-};
+const Reservation = sequelize.define('Reservation', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  id_przedmiotu: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  imię_nazwisko: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  data_od: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
+  data_do: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
+  komentarz: {
+    type: DataTypes.TEXT,
+    allowNull: true
+  }
+});
 
-exports.getReservationsByItemId = (itemId, callback) => {
-    db.all('SELECT * FROM Reservations WHERE id_przedmiotu = ?', [itemId], callback);
-};
+module.exports = Reservation;
