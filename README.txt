@@ -11,3 +11,7 @@ reszta testowana przez przeglądarkę
 /reservations
 /items
 /items/:id
+
+/api/reservations
+/api/items
+/api/items/:id
