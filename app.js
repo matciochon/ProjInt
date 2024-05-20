@@ -29,13 +29,14 @@ const indexRoute = require('./routes/index');
 const itemRoute = require('./routes/items');
 const itemRouteAPI = require('./routes/api/items');
 const reservationRoute = require('./routes/reservations');
+const reservationRouteAPI = require('./routes/api/reservations');
 
 app.use('/', indexRoute);
 app.use('/items', itemRoute);
 app.use('/reservations', reservationRoute);
 
 app.use('/api/items', itemRouteAPI);
-app.use('/api/reservations', reservationRoute);
+app.use('/api/reservations', reservationRouteAPI);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
